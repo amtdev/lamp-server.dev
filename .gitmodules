@@ -1,0 +1,3 @@
+[submodule "cookbooks/phpapp"]
+	path = cookbooks/phpapp
+	url = https://github.com/amtdev/phpapp.git
