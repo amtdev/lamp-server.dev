@@ -1,3 +1,12 @@
-[submodule "cookbooks/amti-phpapp"]
-	path = cookbooks/amti-phpapp
-	url = https://github.com/amtdev/amti-phpapp.git
+[submodule "cookbooks/amti_apache"]
+	path = cookbooks/amti_apache
+	url = https://github.com/amtdev/amti_apache.git
+[submodule "cookbooks/amti_phpapp"]
+	path = cookbooks/amti_phpapp
+	url = https://github.com/amtdev/amti_phpapp.git
+[submodule "cookbooks/amti_data"]
+	path = cookbooks/amti_data
+	url = https://github.com/amtdev/amti_data.git
+[submodule "cookbooks/amti_hosts"]
+	path = cookbooks/amti_hosts
+	url = https://github.com/amtdev/amti_hosts.git
