@@ -7,3 +7,6 @@
 [submodule "cookbooks/amti_hosts"]
 	path = cookbooks/amti_hosts
 	url = https://github.com/amtdev/amti_hosts.git
+[submodule "cookbooks/amti_php"]
+	path = cookbooks/amti_php
+	url = https://github.com/amtdev/amti_php.git
