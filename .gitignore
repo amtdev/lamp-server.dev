@@ -21,3 +21,6 @@ dummy.php
 *.csr
 *.json
 *.lock
+
+# Misc
+app*/
