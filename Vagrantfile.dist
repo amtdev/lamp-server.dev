@@ -20,43 +20,60 @@ config.vm.provision :chef_solo do |chef|
          chef.add_recipe"amti_apache::app2"
          chef.add_recipe"amti_apache::ssl"
          chef.add_recipe"amti_apache::app2_ssl"
-         #hef.add_recipe"amti_data"
+         chef.add_recipe"amti_php"
+         chef.add_recipe"amti_data"
+         chef.add_recipe"amti_data::db2"
          #chef.log_level = :debug
     	 chef.json = {
+    	                       :mysql => {
+                                      :server_root_password => "root",
+                                      :server_repl_password => "repl",
+                                      :server_debian_password => "debian",
+                                      :remove_anonymous_users => true,
+                                      :remove_test_database => true,
+                                      :bind_address => '0.0.0.0'
+                                    },
+
                               :fqdn => "lamp-server.dev",
 
                               :dbconf => { :db_password => "88888888",
                                           :database => "lampse_app",
-                                          :db_username => "lampse_app",
-                                         #:socket => '/var/run/mysql-default/mysqld.sock',
+                                          :db_username => "lampse_app"
                               },
                               :app => { :path => "/var/www/lamp-server.dev",
                                           :project_dir => "app",
                                           :public_dir => "public",
                                           :server_name => "lamp-server.dev",
                                           :server_alias => "www.lamp-server.dev",
-                                          :cert_name => "www.lamp-server.dev",
+                                          :cert_name => "ssl-cert-snakeoil.pem",
+                                          :key_name => "ssl-cert-snakeoil.key",
                               },
 
                               :dbconf2 => { :db_password => "88888888",
                                           :database => "lampse_app2",
-                                          :db_username => "lampse_app2",
-                                          :socket => '/var/run/mysql-default/mysqld.sock',
+                                          :db_username => "lampse_app2"
                               },
                               :app2 => { :path => "/var/www/app2.lamp-server.dev",
                                           :project_dir => "app2",
                                           :public_dir => "public",
                                           :server_name => "app2.lamp-server.dev",
                                           :server_alias => "app2.lamp-server.dev",
-                                          :cert_name => "www.lamp-server.dev",
+                                          :cert_name => "ssl-cert-snakeoil.pem",
+                                          :key_name => "ssl-cert-snakeoil.key",
                               },
 
-                             :php => { :memory_limit        	 => "280M",
+                             :amti_php => { :memory_limit        	 => "280M",
                                       :post_max_size        	 => "128M",
                                       :upload_max_filesize     => "128M",
                                       :max_execution_time      => "180",
                                       :max_input_time        	 => "180",
-                                      :debugger_allow_hosts		=> "169.254.173.107"
+                                      :xdebug		=> {
+
+                                            :remote_host => "10.0.2.15",
+                                            :remote_port => "10000"
+
+
+                                      }
 				      		},
                               :hosts  => {
                                           :name => "lamp-server.dev www.lamp-server.dev app2.lamp-server.dev"
