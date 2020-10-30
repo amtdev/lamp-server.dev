@@ -6,7 +6,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.box = "ubuntu-trusty64-lamp"
+  config.vm.box = "ubuntu-lamphp7-1.0.3"
   config.vm.network :forwarded_port, guest: 3306, host: 3306
   config.vm.network :private_network, ip: '192.168.33.102'
   config.vm.provider :virtualbox do |vb|
@@ -24,8 +24,8 @@ config.vm.provision :chef_solo do |chef|
          chef.add_recipe"amti_data"
          chef.add_recipe"amti_data::db2"
          #chef.log_level = :debug
-    	 chef.json = {
-    	                       :mysql => {
+       chef.json = {
+                             :mysql => {
                                       :server_root_password => "root",
                                       :server_repl_password => "repl",
                                       :server_debian_password => "debian",
@@ -62,19 +62,23 @@ config.vm.provision :chef_solo do |chef|
                                           :key_name => "ssl-cert-snakeoil.key",
                               },
 
-                             :amti_php => { :memory_limit        	 => "280M",
-                                      :post_max_size        	 => "128M",
+                             :amti_php => {
+
+                                      :php_dir    => "php/7.0",
+                                      :memory_limit          => "280M",
+                                      :post_max_size           => "128M",
                                       :upload_max_filesize     => "128M",
                                       :max_execution_time      => "180",
-                                      :max_input_time        	 => "180",
-                                      :xdebug		=> {
+                                      :max_input_time          => "180",
+                                      :xdebug   => {
 
+                                            :zend_extension => '/usr/lib/php/20151012/xdebug.so',
                                             :remote_host => "10.0.2.15",
                                             :remote_port => "10000"
 
 
                                       }
-				      		},
+                            },
                               :hosts  => {
                                           :name => "lamp-server.dev www.lamp-server.dev app2.lamp-server.dev"
                               }
